@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"droidbattle.battle"},{"l":"droidbattle.droids"},{"l":"droidbattle.mainApp"}];updateSearchResults();

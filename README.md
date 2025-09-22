@@ -1,1 +1,1 @@
-# lb3
+# JavaDoc: https://vasya-wasabi.github.io/lb3/

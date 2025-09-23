@@ -89,7 +89,7 @@ public class DroidApp {
             System.out.print("Ваш вибір: ");
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // заберає Enter
+            scanner.nextLine(); //
 
             Droid newDroid = null;
             String name = "";

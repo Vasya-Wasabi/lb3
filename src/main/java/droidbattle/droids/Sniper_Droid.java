@@ -22,6 +22,10 @@ public class Sniper_Droid extends Droid {
      *
      * @param target дроїд, якого атакують
      */
+
+    @Override
+    public void action(Droid target) {}
+
     @Override
     public void attack(Droid target){
         double chance = Math.random();
@@ -29,7 +33,7 @@ public class Sniper_Droid extends Droid {
             System.out.println("Снайпер " + name + " атакує критичним уроном " + target.getName() + " на " + (damage * 2) + "урона" + "!");
             target.takeDamage(damage * 2);
         } else {
-            System.out.println("Снайпер " + name + " атакує " + target.getName() + " на " + damage + "урона" + "!");
+            System.out.println("Снайпер " + name + " атакує " + target.getName() + " на " + damage + " урона" + "!");
             target.takeDamage(damage);
         }
     }

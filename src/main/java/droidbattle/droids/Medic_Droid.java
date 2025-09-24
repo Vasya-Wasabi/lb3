@@ -1,4 +1,5 @@
 package droidbattle.droids;
+import java.util.Scanner;
 
 /**
  * Клас Medic_Droid — дроїд-медик.
@@ -6,8 +7,10 @@ package droidbattle.droids;
  */
 public class Medic_Droid extends Droid {
 
+    Scanner scanner = new Scanner(System.in);
     /** Максимальний рівень здоров'я медика */
-    private int maxHealth;
+    private final int maxHealth;
+    private boolean canHeal = true;
 
     /**
      * Конструктор медика.
@@ -36,15 +39,43 @@ public class Medic_Droid extends Droid {
      *
      * @param target дроїд, якого атакують
      */
+
+    @Override
+    public void action(Droid target) {
+        System.out.print("\nВиберіть дію для медика " + name + ":\n1. Аттака\t");
+
+        if(canHeal) {
+            System.out.println("2. Лікування");
+        } else {
+            System.out.println("2. Лікування (Недоступно цього ходу)");
+        }
+
+        int choice = scanner.nextInt();
+
+        if(choice == 1) {
+            attack(target);
+            canHeal = true;
+        }
+        else if(choice == 2 && canHeal) {
+            activeHeal();
+            canHeal = false;
+        }
+        else {
+            System.out.println("Лікування недоступне, автоматично виконую атаку!");
+            attack(target);
+            canHeal = true;
+        }
+    }
+
     @Override
     public void attack(Droid target) {
-        System.out.println("Медик " + name + " атакує " + target.getName() + " на " + damage + "урона" + "!");
+        System.out.println("- Медик " + name + " атакує " + target.getName() + " на " + damage + " урона" + "!");
         target.takeDamage(damage);
 
         double chance = Math.random();
         if(chance < 0.30) {
             heal(10);
-            System.out.println("Медик " + name + " відновив собі 10 HP!");
+            System.out.println("- Медик " + name + " відновив собі 10 HP!");
         }
     }
 
@@ -53,7 +84,7 @@ public class Medic_Droid extends Droid {
      */
     public void activeHeal() {
         heal(25);
-        System.out.println("Медик " + name + " відновив собі 25 HP!");
+        System.out.println("- Медик " + name + " відновив собі 25 HP! [HP: " + health + " ]");
 
     }
 }

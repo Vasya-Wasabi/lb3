@@ -25,6 +25,8 @@ public abstract class Droid {
         this.damage = damage;
     }
 
+    public abstract void action(Droid target);
+
     /**
      * Абстрактний метод атаки (повинен бути реалізований в кожному підкласі (спадкоємцю))
      *
@@ -40,6 +42,8 @@ public abstract class Droid {
     public void takeDamage(int damage) {
         health -= damage;
         if(health < 0) health = 0;
+
+        System.out.println("- Дроїд " + name + " отримав " + damage + " урону! [HP: " + health + " ]");
     }
 
     /**

@@ -2,6 +2,7 @@ package droidbattle.mainApp;
 import droidbattle.droids.*;
 import java.util.Scanner;
 import java.util.ArrayList;
+import droidbattle.battle.*;
 
 /**
  * Головний клас програми "Битва дроїдів"
@@ -12,7 +13,7 @@ public class DroidApp {
     /** Сканер для введення даних користувачем */
     private static final Scanner scanner = new Scanner(System.in);
     /** Динамічний список створення дроїдів */
-    private static final ArrayList<Droid> droidList = new ArrayList<Droid>();
+    private static final ArrayList<Droid> droidList = new ArrayList<>();
 
     /**
      * Точка входу в програму
@@ -20,6 +21,9 @@ public class DroidApp {
      * @param args аргументи командного рядка (не використовуються)
      */
     public static void main(String[] args) {
+
+        System.out.println("\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tГРА: БИТВА ДРОЇДІВ ");
+
         while (true) {
             printMainMenu();
             int choice = scanner.nextInt();
@@ -32,7 +36,7 @@ public class DroidApp {
                     showDroidListMenu(); // список дроїдів
                     break;
                 case 3:
-                    System.out.println("Бій 1 на 1...");
+                    fight1VS1();
                     break;
                 case 4:
                     System.out.println("Бій команда на команду...");
@@ -57,7 +61,7 @@ public class DroidApp {
      */
     public static void printMainMenu() {
         System.out.println("\n=====================================");
-        System.out.println("        ГРА: БИТВА ДРОЇДІВ ");
+        System.out.println("        МЕНЮ ГРИ ");
         System.out.println("=====================================");
         System.out.println("1. Створити дроїда");
         System.out.println("2. Показати список дроїдів");
@@ -91,33 +95,33 @@ public class DroidApp {
             int choice = scanner.nextInt();
             scanner.nextLine(); //
 
-            Droid newDroid = null;
-            String name = "";
+            Droid newDroid;
+            String name;
 
             switch (choice) {
                 case 1:
-                    System.out.println("Введіть ім'я дроїда: ");
+                    System.out.println("Введіть ім'я штурмовика: ");
                     name = scanner.nextLine();
                     newDroid = new Stormtrooper_Droid(name);
                     droidList.add(newDroid);
                     System.out.println("Створено Штурмовика " + name + "!");
                     break;
                 case 2:
-                    System.out.println("Введіть ім'я дроїда: ");
+                    System.out.println("Введіть ім'я медика: ");
                     name = scanner.nextLine();
                     newDroid = new Medic_Droid(name);
                     droidList.add(newDroid);
                     System.out.println("Створено Медика " + name +"!");
                     break;
                 case 3:
-                    System.out.println("Введіть ім'я дроїда: ");
+                    System.out.println("Введіть ім'я снайпера: ");
                     name = scanner.nextLine();
                     newDroid = new Sniper_Droid(name);
                     droidList.add(newDroid);
                     System.out.println("Створено Снайпера " + name + "!");
                     break;
                 case 4:
-                    System.out.println("Введіть ім'я дроїда: ");
+                    System.out.println("Введіть ім'я танка: ");
                     name = scanner.nextLine();
                     newDroid = new Tank_Droid(name);
                     droidList.add(newDroid);
@@ -150,6 +154,35 @@ public class DroidApp {
                         " [HP: " + d.getHealth() + ", DMG: " + d.getDamage() + "]");
             }
         }
-
     }
+    public static void fight1VS1() {
+        while (true) {
+            System.out.println("\nВиберіть зі списку 2 дроїдів для бою");
+            showDroidListMenu();
+
+            System.out.print("Перший дроїд: ");
+            int choice1 = scanner.nextInt();
+
+            if (choice1 < 1 || choice1 > droidList.size()) {
+                System.out.println("Невірний вибір!");
+                continue;
+            }
+            Droid d1 = droidList.get(choice1 - 1);
+
+            System.out.print("Другий дроїд: ");
+            int choice2 = scanner.nextInt();
+
+            if (choice2 < 1 || choice2 > droidList.size() || choice1 == choice2) {
+                System.out.println("Невірний вибір!");
+                continue;
+            }
+            Droid d2 = droidList.get(choice2 - 1);
+
+            System.out.println("\nВи обрали: " + d1.getName() + " VS " + d2.getName());
+            Fight.duel(d1, d2);
+            break;
+        }
+    }
+
+
 }

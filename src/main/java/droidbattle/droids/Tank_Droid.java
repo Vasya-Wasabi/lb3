@@ -21,9 +21,13 @@ public class Tank_Droid extends Droid {
      *
      * @param target дроїд, якого атакують
      */
+
+    @Override
+    public void action(Droid target) {}
+
     @Override
     public void attack(Droid target){
-        System.out.println("Танк " + name + " атакує " + target.getName() + " на " + damage + "урона" + "!");
+        System.out.println("Танк " + name + " атакує " + target.getName() + " на " + damage + " урона" + "!");
         target.takeDamage(damage);
     }
 
@@ -37,6 +41,7 @@ public class Tank_Droid extends Droid {
     public void takeDamage(int damage) {
         double chance = Math.random();
         if(chance < 0.40) {
+            System.out.println("Спрацював щит!");
             health -= (damage / 2);
             if(health < 0) health = 0;
         } else {
